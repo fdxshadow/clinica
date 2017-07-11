@@ -1,0 +1,50 @@
+<div class="row contact-wrap" id="row_ingreso" ng-init="generatePDF()">
+    <h1 class="center"><i class="fa fa-plus-square-o"></i> Nuevo Ingreso</h1>
+    <div class="col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+        <a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" ng-click="showProcedimiento()" ng-style="procedimientoLinkStyle" ng-show="toggleButtonsVisibility" ><i class="fa fa-calendar-plus-o"></i> Registrar Ingreso</a>
+        <a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" ng-click="showBoleta()"  ng-style="boletaLinkStyle" ng-show="toggleButtonsVisibility" ><i class="fa fa-print"></i> Generar Boleta </a>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 col-xs-12 single-profile-top" ng-show="procedimientoVisibility" ng-controller="IngresosController">
+        <div data-ng-show="error" class="alert alert-danger fade in alert-dismissable text-center">
+            <strong data-ng-bind="error"></strong>
+        </div>
+        <h2><i class="fa fa-user"></i> Resumen</h2>
+        <div class="form-group">
+            <p>Nombre : <strong class="pull-right">{{paciente.nombre}}</strong></p>
+        </div>
+        <div class="form-group">
+            <p>R.U.N. : <strong class="pull-right">{{paciente.run}}</strong></p>
+        </div>
+        <div class="form-group">
+            <p>Medico : <strong class="pull-right">Dr(a). {{medico.nombre}}</strong></p>
+        </div>
+        <div class="form-group">
+            <p>Procedimiento : <strong class="pull-right">{{procedimiento.nombre}}</strong></p>
+        </div>
+        <div class="form-group">
+            <p>Monto : <strong class="pull-right">{{procedimiento.precio}}</strong></p>
+        </div>
+        <div class="form-group">
+            <p>Forma de Pago : <strong class="pull-right">{{tipoPago.nombre}}</strong></p>
+        </div>
+        <div class="form-group" ng-show="toggleButtonsVisibility">
+            <label>Código Procedimiento</label>
+            <input type="text" name="codigo" class="form-control" placeholder="" data-ng-model="codigoPago" >
+        </div>
+        <div class="form-group center">
+            <a class="btn btn-primary" ng-click="create()"><i class="fa fa-edit"></i> Registrar</a>
+        </div>
+    </div>
+</div><!--/.row-->
+
+<div class="row contact-wrap" ng-show="boletaVisibility">
+    <div class="col-lg-8 col-lg-offset-2 col-xs-12">
+        <iframe id="iframeBoleta" type="application/pdf" class="col-lg-12" style="padding: 0px; margin: 0px; height:400px;" ng-src="{{boletaSourceURL}}" ></iframe>
+        <a class="btn btn-default" style="margin-top:20px" ng-click="descargarPDF()" > <i class="fa fa-download"></i> Descargar Boleta </a>
+    </div>
+</div><!--/.row-->
+
+<div class="col-lg-12 col-sm-12 col-xs-12 center">
+    <a class="btn btn-default" style="margin-top:20px" href="#!/tipoPagos"><i class="fa fa-undo"></i> Atrás</a>
+    <a class="btn btn-danger " style="margin-top:20px" href="#!/home_administrativo"><i class="fa fa-times"></i> Cancelar</a>
+</div>

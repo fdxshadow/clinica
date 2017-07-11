@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+		<title> <%= title %> </title>
+	    <meta name="description" content="">
+	    <meta name="viewport" content="width=device-width">
+	    <!-- bower:css -->
+	    <link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/lib/angular-bootstrap/ui-bootstrap-csp.css" />
+   	    <!-- endbower -->
+	    <!-- build:css(.tmp) styles/main.css -->
+	    <link rel="stylesheet" href="/styles/main.css">
+	    <link rel="stylesheet" href="/styles/font-awesome.min.css">
+	    <!-- endbuild -->
+	</head>
+	<body>
+	    <!-- HEADER -->
+	    <header id="header">
+	        <div class="container">
+	          <div class="navbar-left">
+	            <h1 style="font-weight: 100;color: #fff;">Clínica de Reproducción Humana </br> Universidad de Valparaíso</h1>
+	          </div>
+	          <div class="navbar-right">
+	            <a href="#">
+	              <img class="pull-right" src="images/logoblanco.png" alt="" style="padding-top: 15px;">
+	            </a>
+	          </div>
+	        </div><!--/.container-->
+	    </header><!--/header-->
+
+	    <section style="background: #fff;">
+			<div class="container" id="containerPpal" style="padding: 10px 0px 80px 0px" >
+				<% if ( !user ) { %>
+					<div class="pull-right single-profile-top" style="margin: 0;">
+							<a class="btn btn-default pull-right" href="/signin"><i class="fa fa-lock"></i> Identificarse</a>
+							<a class="btn btn-default pull-right" href="/signup"><i class="fa fa-user-plus"></i> Crear Cuenta</a>
+					</div>
+				<% } else { %>
+					<div class="pull-right single-profile-top" style="margin: 0;" ng-controller="ExampleController" ng-show="user.nombre">
+					  <!--Saludo al usuario autentificado-->
+						<p style="margin: 0px"><i class="fa fa-user-circle"></i> {{user.nombre}} {{user.apellido}}
+						<a class="btn btn-default pull-right" href="/signout" alt="cerrar sesion" style="margin-left: 30px;padding: 0px 6px;"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></p>
+						<p style="margin: 0px"><i class="fa fa-cogs"></i> {{user.tipoUsuario}}</p>
+						<!--p style="margin: 0px"><i class="fa fa-envelope"></i> {{user.email}}</p-->
+					</div>
+				<% } %>
+				<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<ng-view>					
+						<!-- CONTENIDO renderizado por angular-->
+					</ng-view>
+				</div>
+			</div>
+	    </section>
+
+
+
+	    <!-- FOOTER -->
+	    <footer id="footer" class="midnight-blue">
+		    <div class="container">
+		      <div class="row center">
+		        <div class="col-sm-12">
+		          <img src="images/logoblanco.png">
+		          <ul>
+		            <li style="margin-top: 15px;"><a>Clínica de Reproducción Humana</a></li></br>
+		            <li><a>Hontaneda 2664, Valparaíso. Chile</a></li></br>
+		            <li><a>Fono: +56 (32) 250 7313</a></li></br>
+		          </ul>
+		        </div>
+		      </div>
+		    </div>
+		    </br></br>
+		</footer>
+
+
+
+
+
+		<script type="text/javascript">
+		    window.user = <%- user || 'null' %>;
+	    </script>
+
+	    <!-- modulos angular -->
+	    <script type="text/javascript" src="/lib/angular/angular.js"></script>
+	    <script type="text/javascript" src="/lib/angular-locale_es-cl.js"></script>
+	    <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
+	    <script type="text/javascript" src="/lib/jquery/dist/jquery.js"></script>
+	    <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+	    <script type="text/javascript" src="/lib/angular-resource/angular-resource.js"></script>
+	    <script type="text/javascript" src="/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+	    <script type="text/javascript" src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	    <script type="text/javascript" src="/lib/ngstorage/ngStorage.min.js"></script>
+	    <!-- charts -->
+	    <script type="text/javascript" src="/lib/chart.js/dist/Chart.bundle.js"></script>
+
+	    <!-- modulo users -->
+	    <script type="text/javascript" src="/user/client.module.users.js"></script>
+		<script type="text/javascript" src="/user/services/client.service.authentication.js"></script>
+		<script type="text/javascript" src="/user/services/client.service.users.js"></script>
+		<script type="text/javascript" src="/user/controllers/client.controller.users.js"></script>
+
+	    <!-- modulo example -->
+	    <script type="text/javascript" src="/example/client.module.example.js"></script>
+	    <script type="text/javascript" src="/example/config/client.route.example.js"></script>
+	    <script type="text/javascript" src="/example/controllers/client.controller.example.js"></script>
+	    <script type="text/javascript" src="/example/controllers/client.controller.movimientosDetallados.js"></script>
+	    <script type="text/javascript" src="/example/controllers/client.controller.registrarFactura.js"></script>
+	    <script type="text/javascript" src="/example/controllers/client.controller.solicitudFactura.js"></script>
+	    <script type="text/javascript" src="/application.js"></script>
+
+	    <!-- modulo pacientes -->
+	    <script type="text/javascript" src="/pacientes/client.module.pacientes.js"></script>
+		<script type="text/javascript" src="/pacientes/services/client.service.pacientes.js"></script>
+		<script type="text/javascript" src="/pacientes/controllers/client.controller.pacientes.js"></script>
+		<script type="text/javascript" src="/pacientes/config/client.route.pacientes.js"></script>
+
+	    <!-- modulo procedimientos -->
+	    <script type="text/javascript" src="/procedimientos/client.module.procedimientos.js"></script>
+		<script type="text/javascript" src="/procedimientos/services/client.service.procedimientos.js"></script>
+		<script type="text/javascript" src="/procedimientos/controllers/client.controller.procedimientos.js"></script>
+		<script type="text/javascript" src="/procedimientos/config/client.route.procedimientos.js"></script>
+
+	    <!-- modulo medicos -->
+	    <script type="text/javascript" src="/medicos/client.module.medicos.js"></script>
+		<script type="text/javascript" src="/medicos/services/client.service.medicos.js"></script>
+		<script type="text/javascript" src="/medicos/controllers/client.controller.medicos.js"></script>
+		<script type="text/javascript" src="/medicos/config/client.route.medicos.js"></script>
+
+	    <!-- modulo tipoPago -->
+	    <script type="text/javascript" src="/tipoPago/client.module.tipoPago.js"></script>
+		<script type="text/javascript" src="/tipoPago/services/client.service.tipoPago.js"></script>
+		<script type="text/javascript" src="/tipoPago/controllers/client.controller.tipoPago.js"></script>
+		<script type="text/javascript" src="/tipoPago/config/client.route.tipoPago.js"></script>
+
+	    <!-- modulo ingresos -->
+	    <script type="text/javascript" src="/ingresos/client.module.ingresos.js"></script>
+		<!--script type="text/javascript" src="/ingresos/services/client.service.nuevoIngreso.js"></script-->
+		<script type="text/javascript" src="/ingresos/services/client.service.ingresos.js"></script>
+		<script type="text/javascript" src="/ingresos/controllers/client.controller.ingresos.js"></script>
+		<script type="text/javascript" src="/ingresos/controllers/client.controller.registraringreso.js"></script>
+		<script type="text/javascript" src="/ingresos/config/client.route.ingresos.js"></script>
+
+	    <!-- modulo facturas -->
+	    <script type="text/javascript" src="/facturas/client.module.facturas.js"></script>
+		<script type="text/javascript" src="/facturas/services/client.service.facturas.js"></script>
+		<script type="text/javascript" src="/facturas/controllers/client.controller.facturas.js"></script>
+		<script type="text/javascript" src="/facturas/config/client.route.facturas.js"></script>
+
+	    <!-- modulo licitaciones -->
+	    <script type="text/javascript" src="/licitaciones/client.module.licitaciones.js"></script>
+		<script type="text/javascript" src="/licitaciones/services/client.service.licitaciones.js"></script>
+		<script type="text/javascript" src="/licitaciones/controllers/client.controller.licitaciones.js"></script>
+		<script type="text/javascript" src="/licitaciones/config/client.route.licitaciones.js"></script>
+
+	    <!-- modulo compra directa -->
+	    <script type="text/javascript" src="/compradirecta/client.module.compradirecta.js"></script>
+		<script type="text/javascript" src="/compradirecta/services/client.service.compradirecta.js"></script>
+		<script type="text/javascript" src="/compradirecta/controllers/client.controller.compradirecta.js"></script>
+		<script type="text/javascript" src="/compradirecta/config/client.route.compradirecta.js"></script>
+
+	    <!-- modulo productos -->
+	    <script type="text/javascript" src="/productos/client.module.productos.js"></script>
+		<script type="text/javascript" src="/productos/services/client.service.productos.js"></script>
+		<script type="text/javascript" src="/productos/controllers/client.controller.productos.js"></script>
+		<script type="text/javascript" src="/productos/config/client.route.productos.js"></script>
+
+	    <!-- modulo directivos -->
+	    <script type="text/javascript" src="/directivo/client.module.directivo.js"></script>
+		<script type="text/javascript" src="/directivo/services/client.service.directivo.js"></script>
+		<script type="text/javascript" src="/directivo/controllers/client.controller.directivo.js"></script>
+		<script type="text/javascript" src="/directivo/config/client.route.directivo.js"></script>
+
+	    <!-- modulo administracion -->
+	    <script type="text/javascript" src="/administracion/client.module.administracion.js"></script>
+		<script type="text/javascript" src="/administracion/controllers/client.controller.administracion.js"></script>
+		<script type="text/javascript" src="/administracion/config/client.route.administracion.js"></script>
+
+	    <!-- Generador de PDFs -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+	</body>
+</html>

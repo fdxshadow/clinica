@@ -1,0 +1,113 @@
+<div class="row contact-wrap"> 
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<h2 class="center"> Resumen de Egresos</h2>
+	</div>
+</div>
+
+</br>
+<!-- El elemento mensaje error -->
+<div data-ng-show="error" class="alert alert-danger fade in alert-dismissable text-center">
+    <strong data-ng-bind="error"></strong>
+</div>
+</br>
+
+<div class="row contact-wrap" id="row_egresos"> 				
+	<div class="col-lg-3 col-sm-3 col-xs-12 single-profile-top">
+			<form class="contact-form" name="additems-form" method="GET" action="#" >
+				<label><span class="fa fa-filter"></span> Filtros</label>
+				</br>
+				<div class="form-group" >
+					<label>Año</label>
+					<select  name="tipo_pago" class="form-control" >
+						<option value="" >2017</option>
+						<option value="" >2016</option>
+					</select>
+				</div>
+				<div class="form-group" >
+					<label>Mes</label>
+					<select  name="tipo_pago" class="form-control" >
+						<option value="" >Todo el año</option>
+						<option value="" >Enero</option>
+						<option value="" >Febrero</option>
+					</select>
+				</div>
+				<div class="form-group" >
+					<label>Fecha de Compra</label>
+					<input name="fecha_compra" class="form-control" type="date"></input>
+				</div>
+				<div class="form-group" >
+					<label>Licitación o Compra Directa</label>
+					<select  name="procedimiento" class="form-control" >
+						<option value="" >Todo</option>
+						<option value="" >Compra Directa</option>
+						<option value="" >Licitación 1</option>
+						<option value="" >Licitación 2</option>
+						<option value="" >Licitación 3</option>
+					</select>
+				</div>
+				<div class="form-group" >
+					<label>Producto</label>
+					<input name="producto" class="form-control" placeholder="Producto">
+				</div>
+				<div class="form-group" >
+					<label>Número Factura</label>
+					<input name="numero_factura" class="form-control" placeholder="Número Factura" ></input>
+				</div>
+				<div class="form-group" >
+					<button type="submit" class="btn btn-danger form-control"><span class="fa fa-search"></span> Ver</button>
+				</div>
+			</form>
+	</div>
+	<div class="col-lg-9 col-sm-9 col-xs-12 single-profile-top">
+		<table class="table table-striped" style='border: 1px solid #DDD' >
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th>Fecha Compra</th>
+					<th>Número de Factura</th>
+					<th>Monto</th>
+					<th>Cantidad</th>
+					<th>Registrado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>procedimiento2</td>
+					<td>11/08/2017</td>
+					<td>2992ue000</td>
+					<td>$80.000</td>
+					<td>1000</td>
+					<td class="center"><i class="fa fa-check" style="color: #00ad84;"><i/></td>
+				</tr>
+				<tr>
+					<td>procedimiento2</td>
+					<td>11/08/2017</td>
+					<td>tlj2344</td>
+					<td>$80.000</td>
+					<td>1000</td>
+					<td class="center"><i class="fa fa-check" style="color: #00ad84;"><i/></td>
+				</tr>
+				<tr>
+					<td>procedimiento3</td>
+					<td>11/08/2017</td>
+					<td>234uoo23</td>
+					<td>$80.000</td>
+					<td>1000</td>
+					<td class="center"></td>
+				</tr>
+				<tr>
+					<td>procedimiento4</td>
+					<td>11/08/2017</td>
+					<td>oo0999</td>
+					<td>$80.000</td>
+					<td>1000</td>
+					<td class="center"></td>
+				</tr>
+			<tbody>
+		</table>
+	</div>
+
+</div><!--/.row-->
+<div class="col-lg-12 col-sm-12 col-xs-12 center">
+	<a class="btn btn-default" style="margin-top:20px" href="#!/home_directivo"><i class="fa fa-times"></i> volver</a>
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			<%= title %>
+		</title>
+	</head>
+	<body>
+		<!-- Mostrar Mensajes Flash -->
+		<% for(var i in messages){ %>
+			<div class="flash"><%= messages[i] %></div>
+		<% } %>
+
+		<form action="/signup" method="post">
+			<div>
+				<label>Nombres</label>
+				<input type="text" name="nombre" />
+			</div>
+			<div>
+				<label>Apellidos</label>
+				<input type="text" name="apellido" />
+			</div>
+			<div>
+				<label>Email</label>
+				<input type="text" name="email" />
+			</div>
+			<div>
+				<label>Nombre de Usuario</label>
+				<input type="text" name="username" />
+			</div>
+			<div>
+				<label>Contraseña</label>
+				<input type="password" name="password" />
+			</div>
+			<div>
+				<label>Contraseña</label>
+				<select name="tipoUsuario">
+					<option value="Administrativo" > Administrativo </option>
+					<option value="Directivo" > Directivo </option>
+					<option value="Administrador de Sistema" > Administrador de Sistema </option>
+				</select>
+			</div>
+			<div>
+				<input type="submit" value="Crear Cuenta" />
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "CRHUV-App",
+  "version": "0.0.5",
+  "dependencies": {
+    "angular": "^1.4.0",
+    "bootstrap": "^3.2.0",
+    "angular-route": "^1.4.0",
+    "angular-resource": "^1.2",
+    "angular-bootstrap": "^2.5.0",
+    "ngstorage": "^0.3.11"
+  }
+}

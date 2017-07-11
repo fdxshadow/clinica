@@ -1,0 +1,154 @@
+<div class="row"> 
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<h1 class="center"> Movimientos Detallados</h1>
+		<a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" id="mostrar_tabla_ingresos" ng-click="showIngresos()" ng-style="ingresosLinkStyle"> Ingresos</a>
+		<a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" id="mostrar_tabla_egresos"  ng-click="showEgresos()"  ng-style="egresosLinkStyle"> Egresos </a>
+	</div>
+</div>
+
+<br>
+<!-- El elemento mensaje error -->
+<div class="row contact-wrap"  data-ng-show="error"> 
+   <div uib-alert ng-class="'alert-danger'" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-sm-10 col-sm-offset-1" close="closeAlert()">{{error}}</div>
+</div>
+<br>
+
+<!--======================| FILTRO INGRESOS | ========================-->
+<div class="row contact-wrap" ng-controller="IngresosController" data-ng-init="find()" ng-show="ingresosVisibility">
+	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+		<h2><span class="fa fa-filter"></span> Filtros</h2>
+		<div class="form-group" >
+			<label>Paciente</label>
+			<input  ng-model="filtro_nombrePaciente" ng-change="filterBy()" class="form-control" type="text"></input>
+		</div>
+		<div class="form-group" >
+			<label>Procedimiento</label>
+			<select ng-model="filtro_procedimiento" ng-change="filterBy()" class="form-control" ng-options="procedimiento as procedimiento.nombre for procedimiento in procedimientos" data-ng-init="find_Procedimientos()">
+			      <option value="" selected>Todos</option>
+			</select>
+		</div>
+		<div class="form-group" >
+			<label>Medico</label>
+			<input  ng-model="filtro_nombreMedico" ng-change="filterBy()" class="form-control" type="text"></input>
+		</div>
+		<div class="form-group" >
+			<label>Tipo de Pago</label>
+			<select ng-model="filtro_tipoPago" ng-change="filterBy()" class="form-control" ng-options="tipoPago as tipoPago.nombre for tipoPago in tipoPagos" data-ng-init="find_tipoPago()">
+			      <option value="" selected>Todos</option>
+			</select>
+		</div>
+		<div class="form-group" >
+			<label>Fecha de Registro</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="filtro_fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" show-button-bar="false" alt-input-formats="altInputFormats" ng-change="find_byFecha()" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+	        </p>
+		</div>
+		<div class="form-group" >
+			<label>Código de Pago</label>
+			<input ng-model="filtro_codigoPago" ng-change="filterBy()" class="form-control" placeholder=""></input>
+		</div>
+	</div>
+	<!--======================| INGRESOS | ========================-->
+	<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
+		<h2>Ingresos</h2>
+	    <table class="table table-striped" style='border: 1px solid #DDD'>
+	        <thead>
+	            <tr>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('paciente.nombre')">Paciente
+	                    <span  class="sortorder" ng-show="propertyName === 'paciente.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('medico.nombre')">Medico
+	                    <span  class="sortorder" ng-show="propertyName === 'medico.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('procedimiento.nombre')">Procedimiento
+	                    <span  class="sortorder" ng-show="propertyName === 'procedimiento.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('fecha')">Fecha
+	                    <span  class="sortorder" ng-show="propertyName === 'fecha'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('monto')">Monto
+	                    <span  class="sortorder" ng-show="propertyName === 'monto'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('tipoPago.nombre')">Tipo Pago
+	                    <span  class="sortorder" ng-show="propertyName === 'tipoPago.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('codigoPago')">Código Pago
+	                    <span  class="sortorder" ng-show="propertyName === 'codigoPago'" ng-class="{reverse: reverse}"></span></button></th>
+	                <th><button class="tableHeaderButton" ng-click="sortBy('estado')">Estado
+	                    <span  class="sortorder" ng-show="propertyName === 'estado'" ng-class="{reverse: reverse}"></span></button></th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr ng-repeat="ingreso in ingresos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+	                <td>{{ingreso.paciente.nombre}}</td>
+	                <td>{{ingreso.medico.nombre}}</td>
+	                <td>{{ingreso.procedimiento.nombre}}</td>
+	                <td>{{ingreso.fecha | date:'dd-MM-yyyy'}}</td>
+	                <td>{{ingreso.monto | currency: fractionsize: 0 }}</td>
+	                <td>{{ingreso.tipoPago.nombre}}</td>
+	                <td>{{ingreso.codigoPago}}</td>
+	                <td class="center"><i class="fa fa-check" ng-show="ingreso.estado == 'Confirmado'" style="color: #00ad84;"></i> {{ingreso.estado}}</td>
+	            </tr>
+	        <tbody>
+	    </table>
+	    <ul uib-pagination total-items="ingresos.length" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-link-numbers="true" previous-text="&#9668" next-text="&#9658" ></ul>
+	</div>
+</div>
+
+
+<!--======================| EGRESOS | ========================-->
+<div class="row contact-wrap" ng-show="egresosVisibility"> 				
+	<div class="col-lg-3 col-sm-3 col-xs-12 single-profile-top">
+			<form class="contact-form" name="additems-form" method="GET" action="#" >
+				<label><span class="fa fa-filter"></span> Filtros</label>
+				</br>
+				<div class="form-group" >
+					<label>Tipo de Compra</label>
+					<select  name="procedimiento" class="form-control" >
+						<option value="" >Todos</option>
+					</select>
+				</div>
+				<div class="form-group" >
+					<label>Fecha de Compra</label>
+					<input name="fecha_compra" class="form-control" type="date"></input>
+				</div>
+				<div class="form-group" >
+					<label>Número Factura</label>
+					<input name="numero_factura" class="form-control" placeholder="Número Factura"></input>
+				</div>
+				<div class="form-group" >
+					<label>Producto</label>
+					<input name="producto" class="form-control" placeholder="Producto">
+				</div>
+				<div class="form-group" >
+					<button type="submit" class="btn btn-danger form-control"><span class="fa fa-search"></span> Ver</button>
+				</div>
+			</form>
+	</div>
+	<div class="col-lg-9 col-sm-9 col-xs-12 single-profile-top">
+		<table class="table table-striped" style='border: 1px solid #DDD' >
+			<thead>
+				<tr class="info">
+					<th>Tipo de Compra</th>
+					<th>Producto</th>
+					<th>Fecha</th>
+					<th>Número de Factura</th>
+					<th>Monto</th>
+					<th>Registrado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="info">
+					<td>Pedro</td>
+					<td>procedimiento2</td>
+					<td>11/08/2017</td>
+					<td>2992ue000</td>
+					<td>$80.000</td>
+					<td class="center"><i class="fa fa-check" style="color: #00ad84;"><i/></td>
+				</tr>
+			<tbody>
+		</table>
+	</div>
+</div>
+
+
+<div class="col-lg-12 col-sm-12 col-xs-12 center">
+	<a class="btn btn-default" style="margin-top:20px" href="#!/home_administrativo"><i class="fa fa-back"></i>  Atrás</a>
+</div>

@@ -1,0 +1,102 @@
+			<div class="row contact-wrap"> 
+				<div class="col-lg-3 col-sm-3 col-xs-12">
+						<form class="contact-form" name="additems-form" method="GET" action="#" >
+							<h2><span class="fa fa-filter"></span> Periodo</h2>
+							</br>
+							<div class="form-group" >
+								<label>Año</label>
+								<select  name="tipo_pago" class="form-control" >
+									<option value="" >2017</option>
+									<option value="" >2016</option>
+								</select>
+							</div>
+							<div class="form-group" >
+								<label>Mes</label>
+								<select  name="tipo_pago" class="form-control" >
+									<option value="" >Todo el año</option>
+									<option value="" >Enero</option>
+									<option value="" >Febrero</option>
+								</select>
+							</div>
+							<div class="form-group" >
+								<input name="pag" type="number" hidden />
+							</div>
+							<div class="form-group" >
+								<button type="submit" class="btn btn-danger form-control"><span class="fa fa-search"></span> Ver</button>
+							</div>
+						</form>
+				</div>
+				{{WSresponse}}
+				<div class="col-lg-9 col-sm-9 col-xs-12">
+					<h2 class="center"> Estado de Resultado</h2>
+					<table class="table table_estadoResultado" style='border: 1px solid #ccc' >
+						<tbody>
+							<tr >
+								<td>Ingresos por Procedimientos</td>
+								<td></td>
+								<td>$20.000.000</td>
+							</tr>
+							<tr>
+								<td>Costos de Procedimientos</td>
+								<td></td>
+								<td>$7.600.000</td>
+							</tr>
+							<tr style="background-color: #00ad84;color: #fff;">
+								<th>Utilidad Bruta</th>
+								<td></td>
+								<th>$12.400.000</th>
+							</tr>
+							<tr>
+								<td>Gastos de Operación:</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>Gastos de Procedimientos</td>
+								<td>$1.200.000</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>Gastos de Administración</td>
+								<td>$2.000.000</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>Gastos Financieros</td>
+								<td>$700.000</td>
+							</tr>
+							<tr>
+								<td>Total Gastos de Operación</td>
+								<td></td>
+								<td>$3.900.000</td>
+							</tr>
+							<tr style="background-color: #00ad84;color: #fff;">
+								<th>Utilidad de Operación</th>
+								<td></td>
+								<th>$8.500.000</th>
+							</tr>
+							<tr>
+								<td>Otros Ingresos No Operativos</td>
+								<td></td>
+								<td>$255.000</td>
+							</tr>
+							<tr>
+								<td>Otros Gastos No Operativos</td>
+								<td></td>
+								<td>$500</td>
+							</tr>
+							<tr style="background-color: #00ad84;color: #fff;">
+								<th>Utilidad Antes de Impuestos</th>
+								<td></td>
+								<th>$8.255.000</th>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div><!--/.row-->
+
+			<div class="col-lg-12 col-sm-12 col-xs-12 center">
+				<a class="btn btn-default" style="margin-top:20px" href="#!/home_directivo"><i class="fa fa-times"></i> volver</a>
+			</div>

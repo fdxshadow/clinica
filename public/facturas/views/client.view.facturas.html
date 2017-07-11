@@ -1,0 +1,92 @@
+<div class="row"> 
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<h1 class="center"> Registrar Factura</h1>
+		<a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" id="mostrar_tabla_ingresos" ng-click="showHCVB()" ng-style="HCVBLinkStyle"> Hospital Carlos Van Buren</a>
+		<a class="btn btn-default btn-lg col-sm-6 col-xs-12" style="margin-top:20px" id="mostrar_tabla_egresos"  ng-click="showFONASA()"  ng-style="FONASALinkStyle"> Fonasa </a>
+	</div>
+</div>
+
+</br>
+<!-- El elemento mensaje error -->
+<div class="row contact-wrap"  data-ng-show="error"> 
+   <div uib-alert ng-class="'alert-danger'" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-sm-10 col-sm-offset-1" close="closeAlert()">{{error}}</div>
+</div>
+<div class="row contact-wrap"  ng-show="(facturas.length == 0)"> 
+   <div uib-alert ng-class="'alert-danger'" class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-sm-10 col-sm-offset-1" close="closeAlert()">No hay facturas por registrar para este tipo de pago</div>
+</div>
+</br>
+
+<div class="row contact-wrap"> 
+    <!--======================|  Formulario  | ========================-->
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin: 0px;" data-ng-init="findFacturas()" ng-show="(HCVBVisibility || FONASAVisibility) && (facturas.length > 0)">
+        <h2 style="margin-top: 0;"> Facturas </h2>
+		<div class="btn-group facturaButtons">
+		    <label ng-repeat="f in facturas" class="btn btn-primary facturaButton" ng-model="factura" uib-btn-radio="f" ng-click='setFactura($index)' >factura {{f.idFacturaInterno}}</label>
+	    </div>
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" style="border-left: 1px solid #ccc;">
+        <form ng-submit="update()" ng-show="factura">
+	    	<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 ">
+		        <div class="form-group">
+		            <label>Glosa</label>
+		            <textarea class="form-control" ng-model="factura.glosa" style="height: 110px;" disabled></textarea>
+		        </div>
+	        </div>
+	    	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+		        <div class="form-group">
+		            <label>Monto</label>
+		            <input type="text" class="form-control" ng-model="factura.monto" disabled>
+		        </div>
+	        </div>
+	    	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+		        <div class="form-group">
+		            <label>Condiciones de Pago</label>
+		            <input type="text" class="form-control" ng-model="factura.condicionesPago" disabled>
+		        </div>
+	        </div>
+	    	<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
+	            <div class="form-group">
+	                <label> Código de Pago</label>
+	                <input type="text" class="form-control" data-ng-model="codigoPago" required>
+	                	<button type="submit" class="btn btn-primary pull-right" style="margin-top: -34px;padding: 6px 5px;" ><i class="fa fa-save"></i> Registrar</button>
+					</input>
+	            </div>
+	        </div>
+        </form>
+    <!--======================|  Ingresos asociados a la factura  | ========================-->
+        <label ng-show="factura"> Ingresos por parte del Hospital Carlos Van Buren a facturar</label>
+        <table class="table table-striped" style='border: 1px solid #DDD' ng-show="factura" ng-controller="IngresosController" data-ng-init="findIngresosByFactura(factura)">
+            <thead>
+                <tr>
+                    <th><button class="tableHeaderButton" ng-click="sortBy('paciente.nombre')">Paciente
+                        <span  class="sortorder" ng-show="propertyName === 'paciente.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+                    <th><button class="tableHeaderButton" ng-click="sortBy('medico.nombre')">Medico
+                        <span  class="sortorder" ng-show="propertyName === 'medico.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+                    <th><button class="tableHeaderButton" ng-click="sortBy('procedimiento.nombre')">Procedimiento
+                        <span  class="sortorder" ng-show="propertyName === 'procedimiento.nombre'" ng-class="{reverse: reverse}"></span></button></th>
+                    <th><button class="tableHeaderButton" ng-click="sortBy('fecha')">Fecha
+                        <span  class="sortorder" ng-show="propertyName === 'fecha'" ng-class="{reverse: reverse}"></span></button></th>
+                    <th><button class="tableHeaderButton" ng-click="sortBy('monto')">Monto
+                        <span  class="sortorder" ng-show="propertyName === 'monto'" ng-class="{reverse: reverse}"></span></button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ingreso in ingresos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+                    <td>{{ingreso.paciente.nombre}}</td>
+                    <td>{{ingreso.medico.nombre}}</td>
+                    <td>{{ingreso.procedimiento.nombre}}</td>
+                    <td>{{ingreso.fecha | date:'dd-MM-yyyy'}}</td>
+                    <td>{{ingreso.monto | currency: fractionsize: 0 }}</td>
+                </tr>
+            <tbody>
+        </table>
+        <ul uib-pagination total-items="ingresos.length" ng-model="currentPage" max-size="maxSize" items-per-page="itemsPerPage" class="pagination-sm" boundary-link-numbers="true" previous-text="&#9668" next-text="&#9658" ng-show="factura"></ul>
+    </div>
+
+</div>
+
+<div class="col-lg-12 col-sm-12 col-xs-12 center">
+    <a class="btn btn-default" style="margin-top:20px" href="#!/home_administrativo"><i class="fa fa-back"></i>  Atrás</a>
+    <a class="btn btn-danger " style="margin-top:20px" href="#!/home_administrativo"><i class="fa fa-times"></i> Cancelar</a>
+</div>

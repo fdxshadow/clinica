@@ -1,0 +1,74 @@
+<!-- El elemento mensaje error -->
+<div data-ng-show="error" class="alert alert-danger fade in alert-dismissable text-center">
+    <strong data-ng-bind="error"></strong>
+</div>
+
+<div class="row contact-wrap"> 
+    <div class="col-lg-12 col-sm-12 col-xs-12" >
+        <h1 class="center"> Recepción de Materiales</h1>
+        <p class="lead center">Busque un producto recibido e ingrese la cantidad recibida</p>
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12" style='border-right: 1px solid #DDD'>
+    <form ng-submit="filtrarProductos()">
+		<h2><span class="fa fa-filter"></span> Filtros de Productos</h2>
+        <div class="form-group">
+            <label>Descripción</label>
+            <input type="text" class="form-control" data-ng-model="descripcion" required>
+        </div>
+        <div class="form-group">
+            <label>Código ID</label>
+            <input type="text" class="form-control" data-ng-model="codigoID" placeholder="" required>
+        </div>
+        <div class="form-group">
+            <label>Proveedor</label>
+            <input type="text" class="form-control" data-ng-model="nombreSolicitante" placeholder="" required>
+        </div>
+        <div class="center">
+            <button type="submit" class="btn btn-primary form-control"><i class="fa fa-search"></i> Aplicar Filtros</button>
+        </div>
+    </form>
+</div>
+
+<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12" ng-controller="ProductosController" ng-init="find()">
+    <h2>Productos</h2>
+    <table class="table table-striped" style='border: 1px solid #DDD; margin-top: 36px;' >
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Codigo ID</th>
+                <th>Proveedor</th>
+                <th>Licitación</th>
+                <th>Compra Directa</th>
+                <th>Cantidad Comprada</th>
+                <th>Cantidad Actual</th>
+                <th>Cantidad Recibida</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="p in productos">
+                <td>{{p.descripcion}}</td>
+                <td>{{p._id}}</td>
+                <td>{{p.proveedor}}</td>
+                <td>{{p.licitacion}}</td>
+                <td>{{p.compraDirecta}}</td>
+                <td>{{p.cantidadComprada}}</td>
+                <td>{{p.cantidadRecibida}}</td>
+                <td><input type="number" class="form-control" ng-model="recibidos[$index]" ng-hide="p.cantidadComprada == p.cantidadRecibida" min="0" max="{{p.cantidadComprada - p.cantidadRecibida}}" required /></td>
+                <td><button class="btn btn-default" ng-click="updateStockProducto($index)" ng-hide="p.cantidadComprada == p.cantidadRecibida" style="padding: 3px 7px;margin-top: 3px;"><i class="fa fa-upload"></i> actualizar</button></td>
+            </tr>
+            <tr ng-show="productos.length === 0">
+                <td colspan="6" class="center"> No se han enontrado productos</td>
+            </tr>
+        <tbody>
+    </table>
+</div>
+
+
+<div class="col-lg-12 col-sm-12 col-xs-12 center">
+    <a class="btn btn-default " style="margin-top:20px" href="#!/tipo_egreso"><i class="fa fa-back"></i> Atrás</a>
+    <a class="btn btn-danger " style="margin-top:20px" href="#!/home_administrativo"><i class="fa fa-times"></i> Cancelar</a>
+</div>
+
